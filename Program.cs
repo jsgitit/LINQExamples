@@ -21,7 +21,7 @@ namespace LINQExamples
             };
 
             // The IEnumerable<T> has a GetEnumerator() that allows us to walk through
-            // each item in the collection
+            // each item in the collection.  Effectively foreach is using this.
             foreach (var person in devs)
             {
                 System.Console.WriteLine(person.EmpName);
