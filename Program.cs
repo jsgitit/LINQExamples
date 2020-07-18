@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 
 namespace LINQExamples
 {
@@ -27,6 +26,8 @@ namespace LINQExamples
                 System.Console.WriteLine(person.EmpName);
             }
 
+            // use custom extension method called "Count()" in Extension Method class.
+            System.Console.WriteLine("The number of items is " + devs.Count());
         }
     }
 }
