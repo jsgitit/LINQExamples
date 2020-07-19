@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.CSharp.RuntimeBinder;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LINQExamples
 {
@@ -10,20 +12,34 @@ namespace LINQExamples
             IEnumerable<Employee> devs = new Employee[]
             {
                 new Employee { EmpId = 1, EmpName = "Jon"},
-                new Employee { EmpId = 2, EmpName = "Harry" }
+                new Employee { EmpId = 2, EmpName = "Harry" },
+                new Employee { EmpId = 2, EmpName = "Alice" }
+
             };
 
             //... or a List<T>, etc.  
             IEnumerable<Employee> sales = new List<Employee>()
             {
-                new Employee { EmpId = 3, EmpName = "Marissa"}
+                new Employee { EmpId = 3, EmpName = "Marissa"},
+                new Employee { EmpId = 3, EmpName = "Scott"},
+                new Employee { EmpId = 3, EmpName = "Patrick"}
+
+
             };
 
             // The IEnumerable<T> has a GetEnumerator() that allows us to walk through
             // each item in the collection.  Effectively foreach is using this.
-            foreach (var person in devs)
+            foreach (var employee in devs.Where(e => e.EmpName.StartsWith("J")))
             {
-                System.Console.WriteLine(person.EmpName);
+                System.Console.WriteLine(employee.EmpName);
+
+            }
+
+            System.Console.WriteLine("***");
+            foreach (var employee in devs.Where(e => e.EmpName.Length == 5)
+                                         .OrderBy(e => e.EmpName))
+            {
+                System.Console.WriteLine(employee.EmpName);
             }
 
             // use custom extension method called "Count()" in Extension Method class.
