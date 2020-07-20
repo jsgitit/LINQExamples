@@ -34,10 +34,16 @@ namespace LINQExamples
             }
 
             System.Console.WriteLine("***");
-            //Write out the employees who's name length is 5 chars and order by the employee name
+            //Write out the employees who's name length is 5 chars and order by the employee name, using LINQ Method Syntax
             var query = devs.Where(e => e.EmpName.Length == 5)
-                            .OrderBy(e => e.EmpName);
-            foreach (var employee in query)
+                            .OrderByDescending(e => e.EmpName);
+
+            // LINQ Query Syntax version
+            var query2 = from dev in devs
+                         where dev.EmpName.Length == 5
+                         orderby dev.EmpName
+                         select dev;
+            foreach (var employee in query2)
             {
                 System.Console.WriteLine(employee.EmpName);
             }
