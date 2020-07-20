@@ -8,6 +8,12 @@ namespace Queries
     {
         static void Main(string[] args)
         {
+            var numbers = MyLINQ.Random().Where(n => n > 0.5).Take(10);
+            foreach (var number in numbers)
+            {
+                Console.WriteLine(number);
+            }
+            
             var movies = new List<Movie>
             {
                 new Movie { Title = "The Dark Knight", Rating = 8.9f, Year = 2008},
@@ -16,8 +22,12 @@ namespace Queries
                 new Movie { Title = "Star Wars V", Rating = 8.7f, Year = 1980}
             };
 
-            // Deferred Execution "Filter" acts like the Where() operator. "Lazy"
-            var query = movies.DeferredExecutionFilter(m => m.Year > 2000);
+            // Customer "DeferredExecutionFilter" acts like the Where() operator. It's "Lazy"
+            // Using Take() before OrderBy is more efficient.  Filter first.
+            var query = movies.Where(m => m.Year > 2000)
+                              .Take(2)
+                              .OrderByDescending(m => m.Rating);
+                             
             foreach (var movie in query)
             {
                 Console.WriteLine(movie.Title);
