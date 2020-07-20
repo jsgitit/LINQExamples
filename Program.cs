@@ -9,7 +9,7 @@ namespace LINQExamples
         static void Main(string[] args)
         {
             // IEnumerable hides the source of data, whether it's an Array...
-            IEnumerable<Employee> devs = new Employee[]
+            var devs = new Employee[]
             {
                 new Employee { EmpId = 1, EmpName = "Jon"},
                 new Employee { EmpId = 2, EmpName = "Harry" },
@@ -18,13 +18,11 @@ namespace LINQExamples
             };
 
             //... or a List<T>, etc.  
-            IEnumerable<Employee> sales = new List<Employee>()
+            var sales = new List<Employee>()
             {
                 new Employee { EmpId = 3, EmpName = "Marissa"},
                 new Employee { EmpId = 3, EmpName = "Scott"},
                 new Employee { EmpId = 3, EmpName = "Patrick"}
-
-
             };
 
             // The IEnumerable<T> has a GetEnumerator() that allows us to walk through
@@ -36,8 +34,10 @@ namespace LINQExamples
             }
 
             System.Console.WriteLine("***");
-            foreach (var employee in devs.Where(e => e.EmpName.Length == 5)
-                                         .OrderBy(e => e.EmpName))
+            //Write out the employees who's name length is 5 chars and order by the employee name
+            var query = devs.Where(e => e.EmpName.Length == 5)
+                            .OrderBy(e => e.EmpName);
+            foreach (var employee in query)
             {
                 System.Console.WriteLine(employee.EmpName);
             }
